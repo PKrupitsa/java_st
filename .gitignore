@@ -20,3 +20,5 @@ sandbox/build/distributions/sandbox.tar
 sandbox/build/classes/java/main/MyFirstProgram.class
 sandbox/build/libs/sandbox.jar
 .idea/misc.xml
+.idea/uiDesigner.xml
+.idea/gradle.xml
