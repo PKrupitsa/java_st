@@ -2,13 +2,13 @@ package ru.stqa.pft.sandox;
 
 public class MyFirstProgram {
 
-    public static void main(String[] args) {
+     public static void main(String[] args) {
 
-            PointDist p1 = new PointDist(10, 10);
+            Point p1 = new Point(0, 1);
 
-            PointDist p2 = new PointDist(20, 20);
+            Point p2 = new Point(0, 2);
 
-            System.out.println("Расстояние между точками = " + p1.distance(0, 1));
+            System.out.println("Расстояние между точками = " + Point.distance(p1, p2));
 
         }
     }
