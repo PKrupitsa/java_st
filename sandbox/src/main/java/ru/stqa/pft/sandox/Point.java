@@ -13,3 +13,4 @@ public class Point {
         return Math.sqrt((p.x - this.x) * (p.x - this.x) + (p.y - this.y) * (p.y - this.y));
     }
 }
+
