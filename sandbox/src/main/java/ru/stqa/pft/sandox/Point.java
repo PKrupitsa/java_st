@@ -1,7 +1,6 @@
 package ru.stqa.pft.sandox;
 
 public class Point {
-
     public double x;
     public double y;
 
@@ -10,19 +9,7 @@ public class Point {
         this.y = y;
     }
 
-    public double getX(){
-        return x;
-    }
-
-    public double getY(){
-        return y;
-    }
-
-
-    public static double distance(Point a, Point b)
-    {
-        double dx = a.x - b.x;
-        double dy = a.y - b.y;
-        return Math.sqrt(dx * dx + dy * dy);
+    public double distance(Point p) {
+        return Math.sqrt((p.x - this.x) * (p.x - this.x) + (p.y - this.y) * (p.y - this.y));
     }
 }
