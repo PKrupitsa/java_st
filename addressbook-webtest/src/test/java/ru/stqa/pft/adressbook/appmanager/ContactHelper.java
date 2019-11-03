@@ -81,9 +81,9 @@ public class ContactHelper extends HelperBase {
     public boolean isThereAContact() {
         return isElementPresent(By.xpath("(//img[@alt='Edit'])"));
     }
-    public int getContactCount() {
+    /*public int getContactCount() {
         return wd.findElements(By.name("selected[]")).size();
-    }
+    }*/
 
     public List<ContactData> getContactList() {
         List<ContactData> contacts = new ArrayList<ContactData>();
