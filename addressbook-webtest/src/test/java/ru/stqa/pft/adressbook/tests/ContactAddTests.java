@@ -1,33 +1,27 @@
 package ru.stqa.pft.adressbook.tests;
 
-import org.testng.Assert;
+
 import org.testng.annotations.Test;
 import ru.stqa.pft.adressbook.model.ContactData;
-
-import java.util.Comparator;
-import java.util.List;
-
+import java.util.Set;
+import static org.testng.Assert.assertEquals;
 
 public class ContactAddTests extends TestBase {
 
-    @Test
-    public void testContactAdding() throws Exception {
-        app.getNavigationHelper().goToHomePage();
-        List<ContactData> before = app.getContactHelper().getContactList();
+    @Test (enabled = true)
+    public void testAdressAdding() throws Exception {
+        app.goTo().goToHomePage();
+        Set<ContactData> before = app.getContactHelper().all();
         app.getContactHelper().initContactAdd();
-        ContactData contact = new ContactData("Qqqq", "wwwww", "eeeee", "rrrrr", "rrrrr", "Qwww", "email", "000");
+        ContactData contact = new ContactData().withFirstname("Ffff").withLastname("Ccccc").withGroup("test1");
         app.getContactHelper().fillContactForm(contact, true);
         app.getContactHelper().submitContactAdd();
         app.getContactHelper().returnToHomePage();
-
-        List<ContactData> after = app.getContactHelper().getContactList();
-        Assert.assertEquals(after.size(), before.size() + 1);
-
+        Set<ContactData> after = app.getContactHelper().all();
+        assertEquals(after.size(), before.size() + 1);
+        contact.withId(after.stream().mapToInt((c) -> c.getId()).max().getAsInt());
         before.add(contact);
-        Comparator<? super ContactData> byId = (c1, c2) -> Integer.compare(c1.getId(), c2.getId());
-        before.sort(byId);
-        after.sort(byId);
-        Assert.assertEquals(before, after);
+        assertEquals(before, after);
 
     }
 
