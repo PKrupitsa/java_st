@@ -9,16 +9,16 @@ import java.util.Set;
 public class ContactDeletionTests extends TestBase {
     @BeforeMethod
         public void ensurePreconditions() {
-            if (app.getContactHelper().all().size() == 0){
-                app.getContactHelper().createContact(new ContactData().withFirstname("Aaaaa").withLastname("Bbbbbb"), true);
+            if (app.contact().all().size() == 0){
+                app.contact().createContact(new ContactData().withFirstname("Aaaaa").withLastname("Bbbbbb"), true);
             }
         }
     @Test (enabled = true)
-    public void testAddressModification() {
-        Set<ContactData> before = app.getContactHelper().all();
+    public void testContactModification() {
+        Set<ContactData> before = app.contact().all();
         ContactData deletedContact = before.iterator().next();
-        app.getContactHelper().delete(deletedContact);
-        Set<ContactData> after = app.getContactHelper().all();
+        app.contact().delete(deletedContact);
+        Set<ContactData> after = app.contact().all();
         Assert.assertEquals(after.size(), before.size() - 1);
         before.remove(deletedContact);
         Assert.assertEquals(before, after);

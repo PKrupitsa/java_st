@@ -8,19 +8,19 @@ import java.util.Set;
 
 public class ContactModificationTests extends TestBase {
         @BeforeMethod public void ensurePreconditions() {
-        if (app.getContactHelper().all().size() == 0){
-            app.getContactHelper().createContact(new ContactData().withFirstname("Aaaaa").withLastname("Ccccccc"), true);
+        if (app.contact().all().size() == 0){
+            app.contact().createContact(new ContactData().withFirstname("Aaaaa").withLastname("Ccccccc"), true);
         }
     }
 
      @Test (enabled = true)
     public void testAddressModification() {
-        Set<ContactData> before = app.getContactHelper().all();
+        Set<ContactData> before = app.contact().all();
         ContactData modifiedContact = before.iterator().next();
         ContactData contact = new ContactData()
                 .withId(modifiedContact.getId()).withFirstname("Aaaa").withLastname("Bbbbb");
-        app.getContactHelper().modify(contact);
-        Set<ContactData> after = app.getContactHelper().all();
+        app.contact().modify(contact);
+        Set<ContactData> after = app.contact().all();
         Assert.assertEquals(after.size(), before.size());
 
         before.remove(modifiedContact);
