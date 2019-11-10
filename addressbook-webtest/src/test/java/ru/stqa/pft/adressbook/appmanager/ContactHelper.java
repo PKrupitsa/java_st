@@ -29,6 +29,7 @@ public class ContactHelper extends HelperBase {
         type(By.name("email"), contactData.getEmail());
         type(By.name("email2"), contactData.getEmail2());
         type(By.name("email3"), contactData.getEmail3());
+        attach(By.name("photo"), contactData.getPhoto());
         if (creation) {
             new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroup());
         } else {
@@ -87,7 +88,7 @@ public class ContactHelper extends HelperBase {
     	  
     	 }
 
-    public void createContact(ContactData contactData, boolean creation) {
+    public void create(ContactData contactData, boolean creation) {
         initContactAdd();
         fillContactForm(contactData, creation);
         submitContactAdd();
@@ -116,18 +117,6 @@ public class ContactHelper extends HelperBase {
         return wd.findElements(By.name("selected[]")).size();
     }
 
-    public List<ContactData> getContactList() {
-        List<ContactData> contacts = new ArrayList<ContactData>();
-        List<WebElement> elements = wd.findElements(By.xpath("//tr[@name= 'entry']"));
-        for (WebElement element : elements) {
-            List<WebElement> field = element.findElements(By.tagName("td"));
-            String firstname = field.get(2).getText();
-            String lastname = field.get(1).getText();
-            int id = Integer.parseInt(field.get(0).findElement(By.tagName("input")).getAttribute("value"));
-            contacts.add(new ContactData().withId(id).withFirstname(firstname).withLastname(lastname));
-                    }
-        return contacts;
-    }
     public Set<ContactData> all() {
         Set<ContactData> contacts = new HashSet<ContactData>();
         List<WebElement> elements = wd.findElements(By.xpath("//tr[@name= 'entry']"));

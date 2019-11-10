@@ -9,7 +9,7 @@ import java.util.Set;
 public class ContactModificationTests extends TestBase {
         @BeforeMethod public void ensurePreconditions() {
         if (app.contact().all().size() == 0){
-            app.contact().createContact(new ContactData().withFirstname("Aaaaa").withLastname("Ccccccc"), true);
+            app.contact().create(new ContactData().withFirstname("Aaaaa").withLastname("Ccccccc"), true);
         }
     }
 
