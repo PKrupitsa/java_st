@@ -32,7 +32,7 @@ public class ContactAddTests extends TestBase {
     }
 
     @Test (dataProvider = "validContactsFromJson")
-    public void testAdressAdding(ContactData contact) throws Exception {
+    public void ContactAddTests(ContactData contact) throws Exception {
         app.goTo().goToHomePage();
         Set<ContactData> before = app.contact().all();
         app.contact().initContactAdd();
