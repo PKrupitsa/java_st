@@ -4,7 +4,7 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.stqa.pft.adressbook.model.ContactData;
-import java.util.Set;
+import ru.stqa.pft.adressbook.model.Contacts;
 
 public class ContactDeletionTests extends TestBase {
     @BeforeMethod
@@ -15,10 +15,10 @@ public class ContactDeletionTests extends TestBase {
         }
     @Test (enabled = true)
     public void testContactModification() {
-        Set<ContactData> before = app.contact().all();
+        Contacts before = app.db().contacts();
         ContactData deletedContact = before.iterator().next();
         app.contact().delete(deletedContact);
-        Set<ContactData> after = app.contact().all();
+        Contacts after = app.db().contacts();
         Assert.assertEquals(after.size(), before.size() - 1);
         before.remove(deletedContact);
         Assert.assertEquals(before, after);

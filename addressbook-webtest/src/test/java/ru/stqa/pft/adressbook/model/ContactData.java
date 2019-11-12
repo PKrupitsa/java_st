@@ -1,26 +1,74 @@
 package ru.stqa.pft.adressbook.model;
 
 import com.google.gson.annotations.Expose;
+import org.hibernate.annotations.Type;
 
+import javax.persistence.*;
 import java.io.File;
+
+@Entity
+@Table(name = "addressbook")
 public class ContactData {
+    @Id
+    @Column(name = "id")
     private int id = Integer.MAX_VALUE;;
+
+    @Expose
+    @Column(name = "firstname")
     private String firstname;
+
+    @Column(name = "middlename")
     private  String middlename;
+
+    @Expose
+    @Column(name = "lastname")
     private String lastname;
+
+    @Expose
+    @Column(name = "home")
+    @Type(type = "text")
     private String homephone;
+
+    @Column(name = "work")
+    @Type(type = "text")
     private String workphone;
+
+    @Column(name = "mobile")
+    @Type(type = "text")
     private String phone;
+
+    @Transient
     private String allPhones;
+
+    @Expose
+    @Column(name = "email")
+    @Type(type = "text")
     private String email;
+
+    @Column(name = "email2")
+    @Type(type = "text")
     private String email2;
+
+    @Column(name = "email3")
+    @Type(type = "text")
     private String email3;
+
+    @Transient
     private String allEmails;
+
+    @Expose
+    @Type(type = "text")
+    @Column(name = "address")
     private String address;
     @Expose
+    @Transient
     private String group;
-    private File photo;
+  
 
+    @Transient
+    @Column(name = "photo")
+    @Type(type = "text")
+    private String photo;
 
     public int getId() { 
     
@@ -81,9 +129,9 @@ public class ContactData {
         return group;
     }
 
-    public File getPhoto() {
-        return photo;
-    }
+ /*   public File getPhoto() {
+        return new File(photo);
+    } */
 
     public ContactData withId(int id) {
         this.id = id;
@@ -95,14 +143,13 @@ public class ContactData {
         return this;
     }
 
-    public ContactData withLastname(String lastname) {
-        this.lastname = lastname;
+    public ContactData withMiddlename(String middlename) {
+        this.middlename = middlename;
         return this;
     }
 
-
-    public ContactData withMiddlename(String middlename) {
-        this.middlename = middlename;
+    public ContactData withLastname(String lastname) {
+        this.lastname = lastname;
         return this;
     }
 
@@ -153,7 +200,7 @@ public class ContactData {
         return this;
     }
     public ContactData withPhoto (File photo) {
-        this.photo = photo;
+        this.photo = photo.getPath();
         return this;
     }
 

@@ -5,7 +5,7 @@ import com.google.gson.reflect.TypeToken;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import ru.stqa.pft.adressbook.model.ContactData;
-
+import ru.stqa.pft.adressbook.model.Contacts;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -34,17 +34,18 @@ public class ContactAddTests extends TestBase {
     @Test (dataProvider = "validContactsFromJson")
     public void ContactAddTests(ContactData contact) throws Exception {
         app.goTo().goToHomePage();
-        Set<ContactData> before = app.contact().all();
+        Contacts before = app.db().contacts();
         app.contact().initContactAdd();
         app.contact().create((contact), true);
-        Set<ContactData> after = app.contact().all();
+
+        Contacts after = app.db().contacts();
         assertEquals(after.size(), before.size() + 1);
         contact.withId(after.stream().mapToInt((c) -> c.getId()).max().getAsInt());
         before.add(contact);
         assertEquals(before, after);
     }
 
-    @Test (enabled = true)
+    @Test (enabled = false)
     public void testContactAdd() throws Exception {
         app.goTo().goToHomePage();
         Set<ContactData> before = app.contact().all();

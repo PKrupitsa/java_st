@@ -4,23 +4,23 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.stqa.pft.adressbook.model.ContactData;
-import java.util.Set;
+import ru.stqa.pft.adressbook.model.Contacts;
 
 public class ContactModificationTests extends TestBase {
         @BeforeMethod public void ensurePreconditions() {
-        if (app.contact().all().size() == 0){
+        if(app.db().contacts().size() ==0){
             app.contact().create(new ContactData().withFirstname("Aaaaa").withLastname("Ccccccc"), true);
         }
     }
 
      @Test (enabled = true)
     public void testAddressModification() {
-        Set<ContactData> before = app.contact().all();
+        Contacts before = app.db().contacts();
         ContactData modifiedContact = before.iterator().next();
         ContactData contact = new ContactData()
                 .withId(modifiedContact.getId()).withFirstname("Aaaa").withLastname("Bbbbb");
         app.contact().modify(contact);
-        Set<ContactData> after = app.contact().all();
+        Contacts after = app.db().contacts();
         Assert.assertEquals(after.size(), before.size());
 
         before.remove(modifiedContact);
