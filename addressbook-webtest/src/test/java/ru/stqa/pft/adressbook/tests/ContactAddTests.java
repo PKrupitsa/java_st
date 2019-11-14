@@ -6,14 +6,19 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import ru.stqa.pft.adressbook.model.ContactData;
 import ru.stqa.pft.adressbook.model.Contacts;
+import ru.stqa.pft.adressbook.model.Groups;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Iterator;
 import java.util.List;
+
 import java.util.Set;
 import java.util.stream.Collectors;
+
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.testng.Assert.assertEquals;
 
 public class ContactAddTests extends TestBase {
@@ -31,7 +36,23 @@ public class ContactAddTests extends TestBase {
         return contacts.stream().map((g) -> new Object[] {g}).collect(Collectors.toList()).iterator();
     }
 
-    @Test (dataProvider = "validContactsFromJson")
+ @Test (enabled = false)
+    public void testAdressAddingnew() throws Exception {
+        Groups groups = app.db().groups();
+        ContactData contact = new ContactData().withFirstname("111").withLastname("222").withAddress("2")
+                .inGroup(groups.iterator().next());
+        Contacts before = app.db().contacts();
+        app.contact().create((contact), true);
+        Contacts after = app.db().contacts();
+
+        assertThat(after.size(), equalTo(before.size()+1));
+        assertThat(after, equalTo(
+                before.withAdded(contact.withId(after.stream().mapToInt((c) -> c.getId()).max().getAsInt()))));
+
+    }
+
+
+    @Test (dataProvider = "validContactsFromJson", enabled = false)
     public void ContactAddTests(ContactData contact) throws Exception {
         app.goTo().goToHomePage();
         Contacts before = app.db().contacts();
@@ -51,7 +72,7 @@ public class ContactAddTests extends TestBase {
         Set<ContactData> before = app.contact().all();
         app.contact().initContactAdd();
         File photo = new File("src/test/resources/image.jpg");
-        ContactData contact = new ContactData().withFirstname("Ffff").withLastname("Ccccc").withGroup("test1");
+        ContactData contact = new ContactData().withFirstname("Ffff").withLastname("Ccccc");
         app.contact().fillContactForm(contact, true);
         app.contact().submitContactAdd();
         app.contact().returnToHomePage();

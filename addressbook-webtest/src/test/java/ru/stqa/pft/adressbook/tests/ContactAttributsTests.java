@@ -17,7 +17,7 @@ public class ContactAttributsTests extends TestBase {
     public void ensurePreconditions() {
         if (app.contact().all().size() == 0){
             app.contact().create(new ContactData().withFirstname("111").withLastname("222").withAddress("testtest").withPhone("+7(111)111").withPhoneHome("222 22").withPhoneWork("888-888")
-                    .withEmail("test@test.test").withEmail2("test2@test.test").withEmail3("test3@test.test").withGroup("000"), true);
+                    .withEmail("test@test.test").withEmail2("test2@test.test").withEmail3("test3@test.test"), true);
         }
     }
     @Test(enabled = true)
@@ -30,6 +30,7 @@ public class ContactAttributsTests extends TestBase {
         assertThat(contact.getAddress(), equalTo(contactInfoFromEditForm.getAddress()));
     }
 
+   
     private String mergePhones(ContactData contact) {
         return Arrays.asList(contact.getPhoneHome(), contact.getPhone(), contact.getPhoneWork())
                 .stream().filter((s) -> ! s.equals(""))
@@ -42,7 +43,5 @@ public class ContactAttributsTests extends TestBase {
                 .collect(Collectors.joining("\n"));
     }
 
-    public static String cleaned(String phone) {
-        return phone.replaceAll("\\s", "").replaceAll("[-()]", "");
-    }
+    public static String cleaned(String phone) {        return phone.replaceAll("\\s", "").replaceAll("[-()]", "");    }
 }
