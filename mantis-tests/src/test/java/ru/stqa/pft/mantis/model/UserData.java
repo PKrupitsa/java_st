@@ -10,17 +10,17 @@ import javax.persistence.Table;
 
 public class UserData {
 
-  @Column(name = "username")
+  @Column(name = "username") //название столбца в таблице
   private String username;
 
   @Id
-  @Column(name = "id")
+  @Column(name = "id") //название столбца в таблице
   private int id;
 
-  @Column(name = "email")
+  @Column(name = "email") //название столбца в таблице
   private String email;
 
-  @Column(name = "password")
+  @Column(name = "password") //название столбца в таблице
   private String password;
 
   public String getUsername() {

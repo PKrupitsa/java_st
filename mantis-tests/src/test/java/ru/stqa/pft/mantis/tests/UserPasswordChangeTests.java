@@ -9,17 +9,18 @@ import ru.stqa.pft.mantis.model.UserData;
 import javax.mail.MessagingException;
 import java.io.IOException;
 import java.util.List;
-
 import static org.testng.Assert.assertTrue;
 
-public class ChangeUsersPasswordTests extends TestBase{
+public class UserPasswordChangeTests extends TestBase{
 
   @BeforeMethod
+
   public void startMailServer() {
     app.mail().start();
   }
 
   @Test
+
   public void testUserPasswordChange() throws IOException, MessagingException {
     app.user().adminLogin();
     app.user().goToPageManageOverview();
